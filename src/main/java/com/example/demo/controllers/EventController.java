@@ -41,10 +41,9 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
-    @PostMapping("/events/{id}")
+    @PutMapping("/events/{id}")
     public ResponseEntity<EventDto> updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) throws EventNotFoundException {
         Event event = eventService.findById(id);
-        System.out.println(event.toString());
         if (event == null) {
             throw new EventNotFoundException();
         }
@@ -55,6 +54,23 @@ public class EventController {
         event.setStart(eventDto.getStart());
         event.setEnd(eventDto.getEnd());
         eventService.createEvent(event);
+        EventDto res = event.toEventDto();
+        return ResponseEntity.status(HttpStatus.OK).body(res);
+    }
+
+    @DeleteMapping("/events/{id}")
+    public ResponseEntity<Event> cancel(@PathVariable("id") Long id) {
+        eventService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/events/{id}")
+    public ResponseEntity<?> getEvent(@PathVariable("id") Long id) throws EventNotFoundException {
+        Event event = eventService.findById(id);
+        if (event == null) {
+            throw new EventNotFoundException();
+        }
+
         EventDto res = event.toEventDto();
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
