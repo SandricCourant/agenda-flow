@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.services.EventService;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.Credential;
@@ -36,7 +37,7 @@ public class GoogleCalController {
     @Autowired
     EventService eventService;
     private final static Log logger = LogFactory.getLog(GoogleCalController.class);
-    private static final String APPLICATION_NAME = "";
+    private static final String APPLICATION_NAME = "agenda-flow";
     private static HttpTransport httpTransport;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static com.google.api.services.calendar.Calendar client;
@@ -71,7 +72,6 @@ public class GoogleCalController {
     public ResponseEntity<List<Event>> oauth2Callback(@RequestParam(value = "code") String code) {
         com.google.api.services.calendar.model.Events eventList;
         String message;
-        String message2;
         List<Event> lists = new ArrayList<>();
         try {
             TokenResponse response = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
@@ -83,21 +83,21 @@ public class GoogleCalController {
 
 
             lists = eventList.getItems();
+
             message = eventList.getItems().toString();
 
-            message2 = eventService.saveAll(eventList).toString();
+            eventService.saveAll(eventList);
 
-            System.out.println("My:" + eventList.getItems() + "\nData: " + message2);
+            System.out.println("My:" + eventList.getItems());
         } catch (Exception e) {
             logger.warn("Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.");
             message = "Exception while handling OAuth2 callback (" + e.getMessage() + ")."
                     + " Redirecting to google connection status page.";
-            message2 = "not found";
 
         }
 
-        System.out.println("cal message:" + message + message2);
+        System.out.println("cal message:" + message);
         return new ResponseEntity<List<Event>>(lists, HttpStatus.OK);
     }
 

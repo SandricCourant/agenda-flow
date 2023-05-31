@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.domain.Event;
 import com.example.demo.dto.EventDto;
 import com.example.demo.exceptions.EventNotFoundException;
+import com.example.demo.helpers.tools;
 import com.example.demo.services.impl.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,29 +25,26 @@ public class EventController {
         List<Event> events= new ArrayList<>();
         eventI.forEach(events::add);
 
-        List<EventDto>eventDtos= new ArrayList<EventDto>();
+        List<EventDto> eventDtos= new ArrayList<>();
 
-        events.forEach(val->{
-            eventDtos.add(val.toEventDto());
-        });
+        events.forEach(val-> eventDtos.add(tools.toEventDto(val)));
 
         return ResponseEntity.status(HttpStatus.OK).body(eventDtos);
 
     }
-
     @PostMapping("/events")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto){
-        Event event = eventService.createEvent(eventDto.toEvent());
-        EventDto res = event.toEventDto();
+        Event event = eventService.createEvent(tools.toEvent(eventDto));
+        EventDto res = tools.toEventDto(event);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @PutMapping("/events/{id}")
     public ResponseEntity<EventDto> updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) throws EventNotFoundException {
         Event event = eventService.findById(id);
-        if (event == null) {
-            throw new EventNotFoundException();
-        }
+
+        if (event == null) throw new EventNotFoundException();
+
         event.setTitle(eventDto.getTitle());
         event.setColorId(eventDto.getColorId());
         event.setDescription(eventDto.getDescription());
@@ -54,10 +52,10 @@ public class EventController {
         event.setStart(eventDto.getStart());
         event.setEnd(eventDto.getEnd());
         eventService.createEvent(event);
-        EventDto res = event.toEventDto();
+        EventDto res = tools.toEventDto(event);
+
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
-
     @DeleteMapping("/events/{id}")
     public ResponseEntity<Event> cancel(@PathVariable("id") Long id) {
         eventService.deleteById(id);
@@ -71,7 +69,7 @@ public class EventController {
             throw new EventNotFoundException();
         }
 
-        EventDto res = event.toEventDto();
+        EventDto res = tools.toEventDto(event);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 }

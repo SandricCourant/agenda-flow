@@ -3,8 +3,8 @@ package com.example.demo.dto;
 import com.example.demo.domain.Event;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.Column;
-import jdk.jfr.DataAmount;
 
+import java.time.LocalDateTime;
 
 public class EventDto {
     private String title;
@@ -12,10 +12,10 @@ public class EventDto {
     private String location;
     private String status;//Example: "confirmed"
     private String description;
-    private DateTime start;
-    private DateTime end;
+    private LocalDateTime start;
+    private LocalDateTime end;
 
-    public EventDto(String title, String colorId, String location, String status, String description, DateTime start, DateTime end) {
+    public EventDto(String title, String colorId, String location, String status, String description, LocalDateTime start, LocalDateTime end) {
         this.title = title;
         this.colorId = colorId;
         this.location = location;
@@ -65,23 +65,19 @@ public class EventDto {
         this.description = description;
     }
 
-    public DateTime getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(DateTime start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public DateTime getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(DateTime end) {
+    public void setEnd(LocalDateTime end) {
         this.end = end;
-    }
-
-    public Event toEvent(){
-        return new Event( this.title, this.colorId, this.location,this.status,this.description,this.start,this.end);
     }
 }

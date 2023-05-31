@@ -1,14 +1,18 @@
 package com.example.demo.services.impl;
 
 import com.example.demo.domain.Event;
+import com.example.demo.exceptions.EventExistsException;
+import com.example.demo.helpers.tools;
 import com.example.demo.repositories.EventRepository;
 import com.example.demo.services.EventService;
 import com.google.api.services.calendar.model.Events;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
@@ -33,13 +37,16 @@ public class EventServiceImpl implements EventService {
             eventData.setStatus(item.getStatus());
             eventData.setColorId(item.getColorId());
 
-            eventData.setStart(item.getStart().getDateTime());
-            eventData.setEnd(item.getEnd().getDateTime());
+            eventData.setStart(tools.toLocalDateTime(item.getStart()));
+            eventData.setEnd(tools.toLocalDateTime(item.getEnd()));
+
+            if(isExist(eventData)) throw new EventExistsException();//Si l'évenement existe déjà, lever une exception
+
             eventsData.add(eventData);
         }
         return eventRepository.saveAll(eventsData);
     }
-
+    @Override
     public Iterable<Event> getAll(){
         return eventRepository.findAll();
     }
@@ -58,7 +65,12 @@ public class EventServiceImpl implements EventService {
     public void deleteById(Long id) {
         eventRepository.deleteById(id);
     }
-
-
-
+    boolean isExist(Event newEvent){
+        return  (eventRepository.findByTitle(newEvent.getTitle()) != null);
+    }
+    /*boolean verifyDate(Event newEvent){
+        Date start = new Date(newEvent.getStart().getValue());
+        Date end = new Date(newEvent.getEnd().getValue());
+        return (eventRepository.findBetween(start))
+    }*/
 }
