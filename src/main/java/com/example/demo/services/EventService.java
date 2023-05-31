@@ -9,4 +9,10 @@ import java.util.Collection;
 public interface EventService {
     Iterable<Event> saveAll(Events events);
     Iterable<Event> getAll();
+
+    Event createEvent(Event event);
+
+    Event findById(Long id);
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.example.demo.dto.EventDto;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 
@@ -23,6 +24,20 @@ public class Event {
 
     @Column(name = "event_end")
     private DateTime end;
+
+    public Event() {
+
+    }
+
+    public Event(String title, String colorId, String location, String status, String description, DateTime start, DateTime end) {
+        this.title = title;
+        this.colorId = colorId;
+        this.location = location;
+        this.status = status;
+        this.description = description;
+        this.start = start;
+        this.end = end;
+    }
 
     public Long getId() {
         return id;
@@ -86,5 +101,9 @@ public class Event {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public EventDto toEventDto(){
+        return new EventDto(this.title, this.colorId, this.location,this.status,this.description,this.start,this.end);
     }
 }

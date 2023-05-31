@@ -44,4 +44,14 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findAll();
     }
 
+    @Override
+    public Event createEvent(Event event) {
+        return eventRepository.save(event);
+    }
+
+    @Override
+    public Event findById(Long id) {
+        return eventRepository.findById(id).orElse(null);
+    }
+
 }
