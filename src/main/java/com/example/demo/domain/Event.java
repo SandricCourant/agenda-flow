@@ -1,7 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.dto.EventDto;
-import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
