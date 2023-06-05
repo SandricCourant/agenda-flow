@@ -86,4 +86,12 @@ public class EventServiceImpl implements EventService {
         Date end = new Date(newEvent.getEnd().getValue());
         return (eventRepository.findBetween(start))
     }*/
+    public boolean isError (Event e) {
+
+        if ((e.getStart().isBefore(e.getEnd()))) {
+            System.out.println("false");
+            return false;
+        }
+        return true;
+    }
 }
