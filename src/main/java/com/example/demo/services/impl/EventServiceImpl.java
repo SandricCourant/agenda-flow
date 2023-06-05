@@ -68,10 +68,9 @@ public class EventServiceImpl implements EventService {
     @Override
     public boolean isExist(Event event){
         List<Event> events= new ArrayList<>();
-
-
         Iterable<Event> eventI = eventRepository.findAll();
         eventI.forEach(events::add);
+
         for(Event e: events){
             if((event.getStart().isAfter(e.getStart()) && event.getStart().isBefore(e.getEnd())) ||  event.getStart().equals(e.getStart())
                     || (event.getStart().isBefore(e.getEnd()) && event.getEnd().isAfter(e.getStart()))) {
@@ -82,5 +81,9 @@ public class EventServiceImpl implements EventService {
         System.out.println("false");
         return false;
     }
-
+    /*boolean verifyDate(Event newEvent){
+        Date start = new Date(newEvent.getStart().getValue());
+        Date end = new Date(newEvent.getEnd().getValue());
+        return (eventRepository.findBetween(start))
+    }*/
 }
