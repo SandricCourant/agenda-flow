@@ -74,11 +74,9 @@ public class EventServiceImpl implements EventService {
         for(Event e: events){
             if((event.getStart().isAfter(e.getStart()) && event.getStart().isBefore(e.getEnd())) ||  event.getStart().equals(e.getStart())
                     || (event.getStart().isBefore(e.getEnd()) && event.getEnd().isAfter(e.getStart()))) {
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     /*boolean verifyDate(Event newEvent){
