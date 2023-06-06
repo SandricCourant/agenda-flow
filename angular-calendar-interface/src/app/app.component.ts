@@ -22,10 +22,12 @@ export class AppComponent implements OnInit{
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.dataService.getAllEvent().subscribe((data: any) => this.events.push({
-      title: data[0].title,
-      start: new Date(data[1].start),
-      end: new Date(data[1].end)
+    this.dataService.getAllEvent().subscribe((data: any) => data.forEach((element: { title: any; start: string | number | Date; end: string | number | Date; }) => {
+      this.events.push({
+        title: element.title,
+        start: new Date(element.start),
+        end: new Date(element.end)
+      });
     }));
     console.log(this.events);
   }

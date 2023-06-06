@@ -33,7 +33,26 @@
     <mwl-calendar-week-view [viewDate]="viewDate" *ngSwitchCase="CalendarView.Week" [events]="events"></mwl-calendar-week-view>
     <mwl-calendar-day-view [viewDate]="viewDate" *ngSwitchCase="CalendarView.Day" [events]="events"></mwl-calendar-day-view>
   </div>
-  <div>
-    <p>{{events}}</p>
+  <div class="container">
+    <h1>Listes des événements</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Start</th>
+          <th>End</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{event.title}}</td>
+          <td>{{event.start}}</td>
+          <td>{{event.end}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <ul>
+      <li *ngFor="let event of events">{{event}}</li>
+    </ul> -->
   </div>
 </div>
