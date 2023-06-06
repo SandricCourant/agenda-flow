@@ -23,7 +23,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.dataService.getAllEvent().subscribe((data: any) => this.events.push({
-      title: data[0].title,
+      title: data[1].title,
       start: new Date(data[1].start),
       end: new Date(data[1].end)
     }));
