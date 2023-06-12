@@ -4,6 +4,7 @@ import com.example.demo.domain.Event;
 import com.example.demo.dto.EventDto;
 import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.exceptions.EventNotFoundException;
+import com.example.demo.exceptions.EventSyntaxException;
 import com.example.demo.helpers.tools;
 import com.example.demo.services.impl.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class EventController {
     @PostMapping("/events")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto){
         Event eventCreate = tools.toEvent(eventDto);
+        if (eventService.isError(eventCreate)) {
+            throw new EventSyntaxException();
+        }
         if(eventService.isExist(eventCreate)){
             throw new EventExistsException();
         }
