@@ -6,7 +6,7 @@ import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.exceptions.EventNotFoundException;
 import com.example.demo.exceptions.EventSyntaxException;
 import com.example.demo.helpers.tools;
-import com.example.demo.services.impl.EventServiceImpl;
+import com.example.demo.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 public class EventController {
     @Autowired
-    private EventServiceImpl eventService;
+    private EventService eventService;
 
     @GetMapping("/events")
     public ResponseEntity<List<EventDto>> listCategories() {

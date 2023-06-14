@@ -14,4 +14,5 @@ public interface EventService {
     void deleteById(Long id);
 
     boolean isExist(Event event);
+    boolean isError (Event e);
 }
