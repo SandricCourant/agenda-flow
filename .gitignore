@@ -26,6 +26,11 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+front/angular-calendar-interface/.vscode/*
+front/angular-calendar-interface/!.vscode/settings.json
+front/angular-calendar-interface/!.vscode/tasks.json
+front/angular-calendar-interface/!.vscode/launch.json
+front/angular-calendar-interface/!.vscode/extensions.json
 .history/*
 
 # Miscellaneous
