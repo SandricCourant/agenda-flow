@@ -1,8 +1,4 @@
-package com.example.demo.dto;
-
-import com.example.demo.domain.Event;
-import com.google.api.client.util.DateTime;
-import jakarta.persistence.Column;
+package com.example.demo.dtos;
 
 import java.time.LocalDateTime;
 

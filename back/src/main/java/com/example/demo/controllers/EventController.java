@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.domain.Event;
-import com.example.demo.dto.EventDto;
+import com.example.demo.dtos.EventDto;
 import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.exceptions.EventNotFoundException;
 import com.example.demo.exceptions.EventSyntaxException;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin("http://localhost:4200")
 @RestController
 public class EventController {
     @Autowired

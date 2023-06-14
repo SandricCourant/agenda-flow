@@ -1,7 +1,7 @@
 package com.example.demo.helpers;
 
 import com.example.demo.domain.Event;
-import com.example.demo.dto.EventDto;
+import com.example.demo.dtos.EventDto;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.EventDateTime;
 
