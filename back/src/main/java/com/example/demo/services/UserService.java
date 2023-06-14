@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Set;
 
-public interface UserService extends UserDetailsService {
+public interface UserService {
     boolean isExistByUsername(String username);
     boolean isExistByEmail(String email);
 

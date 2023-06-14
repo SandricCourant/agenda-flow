@@ -14,18 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
-public class UserDetailsServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     PasswordEncoder encoder;
     @Autowired
     private UserRepository userRepository;
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-    }
 
     @Override
     public boolean isExistByUsername(String username) {

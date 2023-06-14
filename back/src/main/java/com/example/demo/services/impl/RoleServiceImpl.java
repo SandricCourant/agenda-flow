@@ -5,10 +5,11 @@ import com.example.demo.domain.Role;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@Service
 public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleRepository roleRepository;
