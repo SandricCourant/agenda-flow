@@ -1,6 +1,7 @@
 package com.example.demo.services.impl;
 
 import com.example.demo.domain.Event;
+import com.example.demo.domain.Owner;
 import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.helpers.tools;
 import com.example.demo.repositories.EventRepository;
@@ -52,7 +53,8 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event createEvent(Event event) {
+    public Event createEvent(Event event, Owner user) {
+        event.setOwner(user);
         return eventRepository.save(event);
     }
 

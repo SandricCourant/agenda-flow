@@ -47,7 +47,7 @@ public class EventController {
         if(eventService.isExist(eventCreate)){
             throw new EventExistsException();
         }
-        Event event = eventService.createEvent(eventCreate);
+        Event event = eventService.createEvent(eventCreate, null);
         EventDto res = tools.toEventDto(event);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
@@ -64,7 +64,7 @@ public class EventController {
         event.setLocation(eventDto.getLocation());
         event.setStart(eventDto.getStart());
         event.setEnd(eventDto.getEnd());
-        eventService.createEvent(event);
+        eventService.createEvent(event, null);
         EventDto res = tools.toEventDto(event);
 
         return ResponseEntity.status(HttpStatus.OK).body(res);

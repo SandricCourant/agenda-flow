@@ -31,9 +31,7 @@ public class Owner implements UserDetails {
     @NotBlank
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Role> roles = new HashSet<>();
-
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<Role> roles;
 
 
     @OneToMany (mappedBy="owner")
@@ -43,7 +41,10 @@ public class Owner implements UserDetails {
         this.email = email;
         this.password = password;
     }
-
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;
