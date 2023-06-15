@@ -1,10 +1,8 @@
 package com.example.demo.dtos.request;
 
-import com.example.demo.domain.Role;
 import lombok.Data;
 
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 @Data
 public class SignupRequest {
@@ -14,7 +12,7 @@ public class SignupRequest {
     private String email;
     private  String password;
 
-    private Set<String> role;
+    private Collection<String> roles;
 
 
 }

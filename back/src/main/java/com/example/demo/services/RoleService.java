@@ -2,8 +2,8 @@ package com.example.demo.services;
 
 import com.example.demo.domain.Role;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface RoleService {
-    Set<Role> getRoles(Set<String> strRoles);
+    Collection<Role> getRoles(Collection<String> strRoles);
 }

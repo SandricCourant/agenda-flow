@@ -26,10 +26,10 @@ public class JwtUtils {
 
 
 
-    private String jwtCookie = "bezkoder-jwt";
+    private String jwtCookie = "agenda-jwt";
 
 
-    private String jwtRefreshCookie = "bezkoder-jwt-refresh";
+    private String jwtRefreshCookie = "agenda-jwt-refresh";
 
     public ResponseCookie generateJwtCookie(Owner userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());

@@ -7,16 +7,15 @@ import com.example.demo.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 @Service
 public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleRepository roleRepository;
     @Override
-    public Set<Role> getRoles(Set<String> strRoles) {
-        Set<Role> roles = new HashSet<>();
-
+    public Collection<Role> getRoles(Collection<String> strRoles) {
+        List<Role> roles = new ArrayList<>();
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));

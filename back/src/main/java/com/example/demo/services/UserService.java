@@ -1,14 +1,13 @@
 package com.example.demo.services;
 
 import com.example.demo.domain.Role;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface UserService {
     boolean isExistByUsername(String username);
     boolean isExistByEmail(String email);
 
-    void create(String username, String email, String password, Set<Role> roles);
+    void create(String username, String email, String password, Collection<Role> roles);
 
 }

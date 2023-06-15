@@ -31,7 +31,7 @@ public class Owner implements UserDetails {
     @NotBlank
     private String password;
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles = new HashSet<>();
+    private Collection<Role> roles = new HashSet<>();
 
     private Collection<? extends GrantedAuthority> authorities;
 

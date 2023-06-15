@@ -6,7 +6,10 @@ import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.exceptions.EventNotFoundException;
 import com.example.demo.exceptions.EventSyntaxException;
 import com.example.demo.helpers.tools;
+import com.example.demo.security.jwt.JwtUtils;
 import com.example.demo.services.EventService;
+import com.example.demo.services.RefreshTokenService;
+import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class EventController {
     @Autowired
@@ -36,6 +39,7 @@ public class EventController {
     }
     @PostMapping("/events")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto){
+
         Event eventCreate = tools.toEvent(eventDto);
         if (eventService.isError(eventCreate)) {
             throw new EventSyntaxException();
