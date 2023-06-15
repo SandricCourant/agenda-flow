@@ -22,6 +22,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class EventController {
+    //TODO Utiliser JWT pour authentifier User et Ajouter à Event
     @Autowired
     private EventService eventService;
 
@@ -41,7 +42,7 @@ public class EventController {
     }
     @PostMapping("/events")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto){
-        
+
         Event eventCreate = tools.toEvent(eventDto);
         if (eventService.isError(eventCreate)) {
             throw new EventSyntaxException();
