@@ -35,6 +35,9 @@ public class Owner implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
+
+    @OneToMany (mappedBy="owner")
+    private Collection<Event> events;
     public Owner(String username, String email, String password) {
         this.username = username;
         this.email = email;

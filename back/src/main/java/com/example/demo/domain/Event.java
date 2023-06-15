@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,18 @@ public class Event {
 
     private LocalDateTime end;
 
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    @ManyToOne
+    @JsonIgnore
+    private Owner owner;
     public Event() {
 
     }
@@ -33,6 +46,7 @@ public class Event {
         this.description = description;
         this.start = start;
         this.end = end;
+
     }
 
     public Long getId() {
