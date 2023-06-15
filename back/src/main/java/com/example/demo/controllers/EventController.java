@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.domain.Event;
+import com.example.demo.domain.Owner;
 import com.example.demo.dtos.EventDto;
 import com.example.demo.exceptions.EventExistsException;
 import com.example.demo.exceptions.EventNotFoundException;
@@ -13,6 +14,7 @@ import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class EventController {
     }
     @PostMapping("/events")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto){
-
+        
         Event eventCreate = tools.toEvent(eventDto);
         if (eventService.isError(eventCreate)) {
             throw new EventSyntaxException();
