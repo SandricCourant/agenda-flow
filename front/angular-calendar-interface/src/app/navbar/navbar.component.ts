@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-
+  activeItem: string = '';
+  setActiveItem(item: string) {
+    this.activeItem = item;
+  }
 }
+
+
+

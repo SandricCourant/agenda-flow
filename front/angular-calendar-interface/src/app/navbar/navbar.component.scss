@@ -1,0 +1,30 @@
+nav {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Utilisation de Flexbox pour aligner les éléments horizontalement */
+  }
+  
+  li {
+    margin-right: 10px;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .navbar-nav .nav-item .nav-link {
+    color: #fff;
+  }
+  
+  .navbar-nav .nav-item .nav-link:hover,
+  .navbar-nav .nav-item .nav-link.active {
+    color: #ffc107; /* Couleur au survol et pour l'élément actif */
+  }
+  
+  
