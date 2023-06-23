@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { LoginComponent } from './login/login.component';
 
 import { httpInterceptorProviders } from './helpers/http-request.interceptor';
 
@@ -17,6 +18,7 @@ import { httpInterceptorProviders } from './helpers/http-request.interceptor';
     AppComponent,
     NavbarComponent,
     CalendarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
