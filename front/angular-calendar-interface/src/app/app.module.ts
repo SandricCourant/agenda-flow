@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 import { httpInterceptorProviders } from './helpers/http-request.interceptor';
 
@@ -19,6 +20,7 @@ import { httpInterceptorProviders } from './helpers/http-request.interceptor';
     NavbarComponent,
     CalendarComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

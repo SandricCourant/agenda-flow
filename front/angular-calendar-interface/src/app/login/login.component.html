@@ -31,14 +31,14 @@
             name="password"
             [(ngModel)]="form.password"
             required
-            minlength="6"
+            minlength="4"
             #password="ngModel"
             [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
           />
           <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
             <div *ngIf="password.errors['required']">Password is required</div>
             <div *ngIf="password.errors['minlength']">
-              Password must be at least 6 characters
+              Password must be at least 4 characters
             </div>
           </div>
         </div>
@@ -51,6 +51,9 @@
           <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
             Login failed: {{ errorMessage }}
           </div>
+        </div>
+        <div>
+          <a href="/register">Créer un compte</a>
         </div>
       </form>
   

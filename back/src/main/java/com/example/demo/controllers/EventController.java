@@ -16,20 +16,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RestController
+@RequestMapping("/api/user")
 public class EventController {
     //TODO Utiliser JWT pour authentifier User et Ajouter à Event
     @Autowired
     private EventService eventService;
     @GetMapping("/events")
     public ResponseEntity<List<EventDto>> listCategories() {
-
-        Iterable<Event>eventI=eventService.getAll();
+//        Owner userDetails = (Owner) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Iterable<Event>eventI = eventService.getAll();
         List<Event> events= new ArrayList<>();
         eventI.forEach(events::add);
 
@@ -41,7 +43,9 @@ public class EventController {
 
     }
     @PostMapping("/events")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventDto){
+        Owner userDetails = (Owner) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Event eventCreate = tools.toEvent(eventDto);
         if (eventService.isError(eventCreate)) {
@@ -50,13 +54,15 @@ public class EventController {
         if(eventService.isExist(eventCreate)){
             throw new EventExistsException();
         }
-        Event event = eventService.createEvent(eventCreate, null);
+        Event event = eventService.createEvent(eventCreate, userDetails);
         EventDto res = tools.toEventDto(event);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @PutMapping("/events/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<EventDto> updateEvent(@PathVariable("id") Long id, @RequestBody EventDto eventDto) throws EventNotFoundException {
+        Owner userDetails = (Owner) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Event event = eventService.findById(id);
 
         if (event == null) throw new EventNotFoundException();
@@ -67,7 +73,7 @@ public class EventController {
         event.setLocation(eventDto.getLocation());
         event.setStart(eventDto.getStart());
         event.setEnd(eventDto.getEnd());
-        eventService.createEvent(event, null);
+        eventService.createEvent(event, userDetails);
         EventDto res = tools.toEventDto(event);
 
         return ResponseEntity.status(HttpStatus.OK).body(res);

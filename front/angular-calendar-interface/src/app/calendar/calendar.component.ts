@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarView, CalendarEvent } from 'angular-calendar';
 import { DataService } from '../services/data.service';
+import { StorageService } from '../services/storage.service';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -16,17 +17,19 @@ export class CalendarComponent implements OnInit {
   setView = (view: CalendarView) => this.view = view;
 
   events: CalendarEvent[] = [];
-
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    this.dataService.getAllEvent().subscribe((data: any) => data.forEach((element: { title: any; start: string | number | Date; end: string | number | Date; }) => {
-      this.events.push({
-        title: element.title,
-        start: new Date(element.start),
-        end: new Date(element.end)
-      });
-    }));
-    console.log(this.events);
+    if (this.storageService.isLoggedIn()) {
+      this.dataService.getAllEvent().subscribe((data: any) => data.forEach((element: { title: any; start: string | number | Date; end: string | number | Date; }) => {
+        this.events.push({
+          title: element.title,
+          start: new Date(element.start),
+          end: new Date(element.end)
+        });
+      }));
+      console.log(this.events);
+    }
+
   }
 }
